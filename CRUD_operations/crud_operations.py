@@ -224,6 +224,42 @@ def AND_OR_operation():
     except Exception as err:
         logger.error(err)
 
+def comparison_operators():
+    """
+        Description: 
+            This function is used for comparison operators
+    """
+    try:
+        result = db.students.find({"Age":{"$gt":"15"}})
+        for data in result:
+            print(data)
+        print("Displayed Age greater than 15\n")
+
+        result = db.students.find({"Age":{"$lt":"15"}})
+        for data in result:
+            print(data)
+        print("Displayed Age less than 15\n")
+
+        result = db.students.find({"Age":{"$gte":"16"}})
+        for data in result:
+            print(data)
+        print("Displayed Age greater than equal to 16\n")
+
+        result = db.students.find({"Age":{"$lte":"12"}})
+        for data in result:
+            print(data)
+        print("Displayed Age less than equal to 12\n")
+
+        result = db.students.find({"Age":{"$ne":"16"}})
+        for data in result:
+            print(data)
+        print("Displayed Age not equal to 16\n")
+
+
+    except Exception as err:
+        logger.error(err)
+
+
 if __name__ == "__main__":
     create_collection()
     insert_one_doc()
@@ -241,3 +277,4 @@ if __name__ == "__main__":
     AND_operation()
     OR_operation()
     AND_OR_operation()
+    comparison_operators()
