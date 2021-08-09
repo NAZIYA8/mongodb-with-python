@@ -162,6 +162,22 @@ def remove_doc():
     except Exception as err:
         logger.error(err)
 
+def save_doc():
+    """
+        Description: 
+            This function is used to update the data if already existing
+            and it inserts if its not existing
+            in the collection.
+    """
+    try:
+        result = db.students.save(
+            {'StudentNo': '1', 'FirstName': 'Kinjal', 'LastName': 'Shah', 'Age': '10'})
+        print(result)
+        print("saved one document\n")
+    except Exception as err:
+        logger.error(err)
+
+
 
 if __name__ == "__main__":
     create_collection()
@@ -175,4 +191,5 @@ if __name__ == "__main__":
     show_all()
     remove_doc()
     show_all()
-    
+    save_doc()
+    show_all()
