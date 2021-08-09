@@ -119,6 +119,19 @@ def show_all():
     except Exception as err:
         logger.error(err)
     
+def update_one_doc():
+    """
+        Description: 
+            This function is used to update one document
+            in the collection.
+    """
+    try:
+        result = db.students.update_one(
+            {"FirstName":"Amit"}, {"$set":{"LastName":"Shetty"}})
+        print(result)
+        print("Updated one document\n")
+    except Exception as err:
+        logger.error(err)
 
 
 if __name__ == "__main__":
@@ -126,5 +139,7 @@ if __name__ == "__main__":
     insert_one_doc()
     insert_multiple_doc()
     show_one()
+    show_all()
+    update_one_doc()
     show_all()
     
