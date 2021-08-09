@@ -190,6 +190,23 @@ def AND_operation():
     except Exception as err:
         logger.error(err)
 
+def OR_operation():
+    """
+        Description: 
+            This function is used to perform OR operation
+    """
+    try:
+        result = db.students.find(
+            {
+            "$or":[{"FirstName":"Sneha"},{"Age":"16"}]
+            }
+            )
+        for data in result:
+            print(data)
+        print("Successfully performed OR operation\n")
+    except Exception as err:
+        logger.error(err)
+
 
 
 if __name__ == "__main__":
@@ -207,3 +224,4 @@ if __name__ == "__main__":
     save_doc()
     show_all()
     AND_operation()
+    OR_operation()
