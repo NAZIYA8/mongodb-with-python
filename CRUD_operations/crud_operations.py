@@ -22,7 +22,20 @@ def create_collection():
     except Exception as err:
         logger.error(err)
 
+def insert_one_doc():
+    try:
+        db.students.insert_one(
+        {
+            "StudentNo" : "1",
+            "FirstName" : "Kinjal",
+            "LastName": "Shah",
+            "Age" : "10"
+        })
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     create_collection()
-    
+    insert_one_doc()
+    print("Inserted one document")
