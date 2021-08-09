@@ -163,7 +163,7 @@ def remove_doc():
         logger.error(err)
 
 def save_doc():
-    """
+    """ 
         Description: 
             This function is used to update the data if already existing
             and it inserts if its not existing
@@ -174,6 +174,19 @@ def save_doc():
             {'StudentNo': '1', 'FirstName': 'Kinjal', 'LastName': 'Shah', 'Age': '10'})
         print(result)
         print("saved one document\n")
+    except Exception as err:
+        logger.error(err)
+
+def AND_operation():
+    """
+        Description: 
+            This function is used to perform AND operation
+    """
+    try:
+        result = db.students.find({"FirstName":"Virat"},{"Age":"16"})
+        for data in result:
+            print(data)
+        print("Successfully performed AND operation\n")
     except Exception as err:
         logger.error(err)
 
@@ -193,3 +206,4 @@ if __name__ == "__main__":
     show_all()
     save_doc()
     show_all()
+    AND_operation()
