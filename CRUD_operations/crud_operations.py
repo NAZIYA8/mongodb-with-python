@@ -35,6 +35,7 @@ def insert_one_doc():
             "LastName": "Shah",
             "Age" : "10"
         })
+        print("Inserted one document")
     except Exception as err:
         logger.error(err)
 
@@ -89,6 +90,7 @@ def insert_multiple_doc():
             "Age" : "16"
         }
         ])
+        print("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -99,6 +101,21 @@ def show_one():
     """
     try:
         print(db.students.find_one())
+        print("Showed one document\n")
+    except Exception as err:
+        logger.error(err)
+
+def show_all():
+    """
+        Description: 
+            This function is used to display all the documents
+            in the collection.
+    """
+    try:
+        result = db.students.find()
+        for data in result:
+            print(data)
+        print("Showed all documents\n")
     except Exception as err:
         logger.error(err)
     
@@ -107,8 +124,7 @@ def show_one():
 if __name__ == "__main__":
     create_collection()
     insert_one_doc()
-    print("Inserted one document")
     insert_multiple_doc()
-    print("Inserted multiple documents")
     show_one()
-    print("Showed one document")
+    show_all()
+    
