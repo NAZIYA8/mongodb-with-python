@@ -133,6 +133,20 @@ def update_one_doc():
     except Exception as err:
         logger.error(err)
 
+def update_multiple_doc():
+    """
+        Description: 
+            This function is used to update multiple documents
+            in the collection.
+    """
+    try:
+        result = db.students.update_many(
+            {"Age":"16"}, {"$set":{"LastName":"Aluwalia"}})
+        for data in result:
+            print(data)
+        print("Updated multiple documents\n")
+    except Exception as err:
+        logger.error(err)
 
 if __name__ == "__main__":
     create_collection()
@@ -141,5 +155,7 @@ if __name__ == "__main__":
     show_one()
     show_all()
     update_one_doc()
+    show_all()
+    update_multiple_doc()
     show_all()
     
