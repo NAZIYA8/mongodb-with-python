@@ -23,6 +23,10 @@ def create_collection():
         logger.error(err)
 
 def insert_one_doc():
+    """
+        Description: 
+            This function is used to insert single document to the collection.
+    """
     try:
         db.students.insert_one(
         {
@@ -35,6 +39,11 @@ def insert_one_doc():
         logger.error(err)
 
 def insert_multiple_doc():
+    """
+        Description: 
+            This function is used to insert multiple documents to 
+            the collection.
+    """
     try:
         db.students.insert_many([
         {
@@ -83,9 +92,23 @@ def insert_multiple_doc():
     except Exception as err:
         logger.error(err)
 
+def show_one():
+    """
+        Description: 
+            This function is used to display the single document.
+    """
+    try:
+        print(db.students.find_one())
+    except Exception as err:
+        logger.error(err)
+    
+
+
 if __name__ == "__main__":
     create_collection()
     insert_one_doc()
     print("Inserted one document")
     insert_multiple_doc()
     print("Inserted multiple documents")
+    show_one()
+    print("Showed one document")
