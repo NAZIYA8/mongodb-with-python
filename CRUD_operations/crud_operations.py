@@ -207,7 +207,22 @@ def OR_operation():
     except Exception as err:
         logger.error(err)
 
-
+def AND_OR_operation():
+    """
+        Description: 
+            This function is used to perform combination of AND and OR
+    """
+    try:
+        result = db.students.find(
+            {
+            "FirstName":"Dolly","$or":[{"Age":"40"},{"Age":"17"}]
+            }
+            )
+        for data in result:
+            print(data)
+        print("Successfully performed combination of AND and OR operation\n")
+    except Exception as err:
+        logger.error(err)
 
 if __name__ == "__main__":
     create_collection()
@@ -225,3 +240,4 @@ if __name__ == "__main__":
     show_all()
     AND_operation()
     OR_operation()
+    AND_OR_operation()
