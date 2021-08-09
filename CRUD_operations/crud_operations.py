@@ -34,8 +34,58 @@ def insert_one_doc():
     except Exception as err:
         logger.error(err)
 
+def insert_multiple_doc():
+    try:
+        db.students.insert_many([
+        {
+            "StudentNo" : "2",
+            "FirstName" : "Dolly",
+            "LastName": "Singh",
+            "Age" : "17"
+        },
+        {
+            "StudentNo" : "3",
+            "FirstName" : "Amit",
+            "LastName": "Sharma",
+            "Age" : "40"
+        },
+        {
+            "StudentNo" : "4",
+            "FirstName" : "Komal",
+            "LastName": "Pande",
+            "Age" : "12"
+        },
+        {
+            "StudentNo" : "5",
+            "FirstName" : "Ashima",
+            "LastName": "Arora",
+            "Age" : "15"
+        },
+        {
+            "StudentNo" : "6",
+            "FirstName" : "Sneha",
+            "LastName": "Joshi",
+            "Age" : "13"
+        },
+        {
+            "StudentNo" : "7",
+            "FirstName" : "Virat",
+            "LastName": "Chauhan",
+            "Age" : "16"
+        },
+        {
+            "StudentNo" : "8",
+            "FirstName" : "Gautham",
+            "LastName": "Deshpande",
+            "Age" : "16"
+        }
+        ])
+    except Exception as err:
+        logger.error(err)
 
 if __name__ == "__main__":
     create_collection()
     insert_one_doc()
     print("Inserted one document")
+    insert_multiple_doc()
+    print("Inserted multiple documents")
