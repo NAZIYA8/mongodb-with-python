@@ -148,6 +148,21 @@ def update_multiple_doc():
     except Exception as err:
         logger.error(err)
 
+def remove_doc():
+    """
+        Description: 
+            This function is used to remove document
+            in the collection.
+    """
+    try:
+        result = db.students.remove(
+            {"LastName":"Shah"})
+        print(result)
+        print("Removed one document\n")
+    except Exception as err:
+        logger.error(err)
+
+
 if __name__ == "__main__":
     create_collection()
     insert_one_doc()
@@ -157,5 +172,7 @@ if __name__ == "__main__":
     update_one_doc()
     show_all()
     update_multiple_doc()
+    show_all()
+    remove_doc()
     show_all()
     
