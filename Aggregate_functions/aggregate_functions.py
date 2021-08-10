@@ -59,10 +59,23 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+def count_func():
+    """
+        Description: 
+            This function is used to count the total subjects.
+    """
+    try:
+        result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Total_subject': {'$sum':1}}}])
+        for i in result:
+            print(i)
+        print("\n")
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     
     create_collection()
     insert_multiple_doc()
     show_all()
-    
+    count_func()
