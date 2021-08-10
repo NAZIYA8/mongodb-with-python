@@ -121,6 +121,19 @@ def sort_in_desc():
     except Exception as err:
         logger.error(err)
 
+def limit_func():
+    """
+        Description: 
+            This function is used for limit function.
+    """
+    try:
+        result = db.employee_details.find({}, {"FirstName":1,'_id':0}).limit(2)
+        for data in result:
+            print(data)
+        print("Used limit function\n")
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     
@@ -129,4 +142,5 @@ if __name__ == "__main__":
     show_all()
     sort_in_asc()
     sort_in_desc()
+    limit_func()
     
