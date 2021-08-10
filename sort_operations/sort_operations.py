@@ -81,6 +81,7 @@ def insert_multiple_doc():
     except Exception as err:
         logger.error(err)
 
+
 def show_all():
     """
         Description: 
@@ -95,6 +96,7 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+
 def sort_in_asc():
     """
         Description: 
@@ -108,6 +110,7 @@ def sort_in_asc():
     except Exception as err:
         logger.error(err)
 
+
 def sort_in_desc():
     """
         Description: 
@@ -120,6 +123,7 @@ def sort_in_desc():
         print("Successfully Sorted in descending order\n")
     except Exception as err:
         logger.error(err)
+
 
 def limit_func():
     """
@@ -135,6 +139,20 @@ def limit_func():
         logger.error(err)
 
 
+def skip_func():
+    """
+        Description: 
+            This function is used for skip function.
+    """
+    try:
+        result = db.employee_details.find({}, {"FirstName":1,'_id':0}).skip(2)
+        for data in result:
+            print(data)
+        print("Used skip function\n")
+    except Exception as err:
+        logger.error(err)
+
+
 if __name__ == "__main__":
     
     create_collection()
@@ -143,4 +161,5 @@ if __name__ == "__main__":
     sort_in_asc()
     sort_in_desc()
     limit_func()
+    skip_func()
     
