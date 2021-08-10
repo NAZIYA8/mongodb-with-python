@@ -45,8 +45,24 @@ def insert_multiple_doc():
     except Exception as err:
         logger.error(err)
 
+def show_all():
+    """
+        Description: 
+            This function is used to display all the documents
+            in the collection.
+    """
+    try:
+        result = db.student.find()
+        for data in result:
+            print(data)
+        print("Showed all documents\n")
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     
     create_collection()
     insert_multiple_doc()
+    show_all()
+    
