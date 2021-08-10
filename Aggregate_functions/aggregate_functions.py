@@ -98,6 +98,19 @@ def min_func():
     except Exception as err:
         logger.error(err)
 
+def max_func():
+    """
+        Description: 
+            This function is used to get maximum score.
+    """
+    try:
+        result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Maximum_score': {'$max':'$score'}}}])
+        for i in result:
+            print(i)
+        print("\n")
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     
@@ -107,3 +120,4 @@ if __name__ == "__main__":
     count_func()
     sum_func()
     min_func()
+    max_func()
