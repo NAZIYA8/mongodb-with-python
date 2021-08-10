@@ -108,10 +108,25 @@ def sort_in_asc():
     except Exception as err:
         logger.error(err)
 
+def sort_in_desc():
+    """
+        Description: 
+            This function is used to sort in descending order.
+    """
+    try:
+        result = db.employee_details.find({}, {"FirstName":1, '_id':0}).sort("FirstName",-1)
+        for data in result:
+            print(data)
+        print("Successfully Sorted in descending order\n")
+    except Exception as err:
+        logger.error(err)
+
+
 if __name__ == "__main__":
     
     create_collection()
     insert_multiple_doc()
     show_all()
     sort_in_asc()
+    sort_in_desc()
     
