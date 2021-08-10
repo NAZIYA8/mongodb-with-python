@@ -72,6 +72,18 @@ def count_func():
     except Exception as err:
         logger.error(err)
 
+def sum_func():
+    """
+        Description: 
+            This function is used to get the total scores.
+    """
+    try:
+        result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Total_score': {'$sum':'$score'}}}])
+        for i in result:
+            print(i)
+        print("\n")
+    except Exception as err:
+        logger.error(err)
 
 if __name__ == "__main__":
     
@@ -79,3 +91,4 @@ if __name__ == "__main__":
     insert_multiple_doc()
     show_all()
     count_func()
+    sum_func()
