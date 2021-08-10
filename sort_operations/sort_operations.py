@@ -26,9 +26,64 @@ def create_collection():
     except Exception as err:
         logger.error(err)
 
+def insert_multiple_doc():
+    """
+        Description: 
+            This function is used to insert multiple documents to 
+            the collection.
+    """
+    try:
+        db.employee_details.insert_many([
+        {
+            "EmployeeNo" : "1",
+            "FirstName" : "Dolly",
+            "LastName": "Singh",
+            "Age" : "27",
+            "Salary": "30000"
+        },
+        {
+            "EmployeeNo" : "2",
+            "FirstName" : "Amit",
+            "LastName": "Sharma",
+            "Age" : "40",
+            "Salary": "50000"
+        },
+        {
+            "EmployeeNo" : "3",
+            "FirstName" : "Komal",
+            "LastName": "Pande",
+            "Age" : "20",
+            "Salary": "18000"
+        },
+        {
+            "EmployeeNo" : "4",
+            "FirstName" : "Ashima",
+            "LastName": "Arora",
+            "Age" : "25",
+            "Salary": "28000"
+        },
+        {
+            "EmployeeNo" : "5",
+            "FirstName" : "Sneha",
+            "LastName": "Joshi",
+            "Age" : "30",
+            "Salary": "45000"
+        },
+        {
+            "EmployeeNo" : "6",
+            "FirstName" : "Gautham",
+            "LastName": "Deshpande",
+            "Age" : "30",
+            "Salary": "40000"
+        }
+        ])
+        print("Inserted multiple documents\n")
+    except Exception as err:
+        logger.error(err)
 
 
 if __name__ == "__main__":
     
     create_collection()
+    insert_multiple_doc()
     
