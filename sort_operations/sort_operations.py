@@ -95,9 +95,23 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+def sort_in_asc():
+    """
+        Description: 
+            This function is used to sort in ascending order.
+    """
+    try:
+        result = db.employee_details.find({}, {"Age":1, '_id':0}).sort("Age",1)
+        for data in result:
+            print(data)
+        print("Successfully Sorted in ascending order\n")
+    except Exception as err:
+        logger.error(err)
+
 if __name__ == "__main__":
     
     create_collection()
     insert_multiple_doc()
     show_all()
+    sort_in_asc()
     
