@@ -85,6 +85,20 @@ def sum_func():
     except Exception as err:
         logger.error(err)
 
+def min_func():
+    """
+        Description: 
+            This function is used to get the minimum score
+    """
+    try:
+        result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Minimum_score': {'$min':'$score'}}}])
+        for i in result:
+            print(i)
+        print("\n")
+    except Exception as err:
+        logger.error(err)
+
+
 if __name__ == "__main__":
     
     create_collection()
@@ -92,3 +106,4 @@ if __name__ == "__main__":
     show_all()
     count_func()
     sum_func()
+    min_func()
