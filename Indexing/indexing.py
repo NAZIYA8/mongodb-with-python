@@ -14,10 +14,10 @@ db = client.students
 
 def create_collection():
     try:
-        print("Creating collection student_scores.")
+        logger.info("Creating collection student_scores.")
         col = db.student_scores
         if col.drop():
-            print('Deleted existing collection')
+            logger.info('Deleted existing collection')
         db.create_collection("student_scores")
     except Exception as err:
         logger.error(err)
@@ -36,7 +36,7 @@ def insert_multiple_doc():
             {'name':'Komal',"subject":'English','score':78},
             {'name':'Pranay',"subject":'History','score':65,'notes':'Adequate'}
         ])
-        print("Inserted multiple documents\n")
+        logger.info("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -49,8 +49,8 @@ def show_all():
     try:
         result = db.student_scores.find()
         for data in result:
-            print(data)
-        print("Showed all documents\n")
+            logger.info(data)
+        logger.info("Showed all documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -59,14 +59,13 @@ def single_field_index():
         Description:  
             This function is used to create single field index.
     """
-    print('Creatnig index....')
+    logger.info('Creating index....')
     try:
         db.student_scores.create_index("name")
-        print("Single field Index created\n")
+        logger.info("Single field Index created\n")
         for index in db.student_scores.list_indexes():
-            print(index)
+            logger.info(index)
     except Exception as err:
-        print(err)
         logger.error(err)
 
 
@@ -75,14 +74,13 @@ def dropping_index():
         Description: 
             This function is used to drop index.
     """
-    print('Dropping index....')
+    logger.info('Dropping index....')
     try:
         db.student_scores.drop_index('name_1')
-        print("Index dropped\n")
+        logger.info("Index dropped\n")
         for index in db.student_scores.list_indexes():
-            print(index)
+            logger.info(index)
     except Exception as err:
-        print(err)
         logger.error(err)
 
 def compound_indexing():
@@ -90,15 +88,14 @@ def compound_indexing():
         Description: 
             This function is used to create a compound index.
     """
-    print('Creating index....')
+    logger.info('Creating index....')
     try:
         db.student_scores.create_index([("name", pymongo.DESCENDING),
                              ("subject", pymongo.ASCENDING)])
-        print("Compound Index created\n")
+        logger.info("Compound Index created\n")
         for index in db.student_scores.list_indexes():
-            print(index)
+            logger.info(index)
     except Exception as err:
-        print(err)
         logger.error(err)
 
 if __name__ == "__main__":
