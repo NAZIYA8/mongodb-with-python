@@ -54,6 +54,23 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+def single_field_index():
+    """
+        Description:  
+            This function is used to create single field index.
+    """
+    print('Creatnig index....')
+    try:
+        db.student_scores.create_index("name")
+        print("Single field Index created\n")
+        for index in db.student_scores.list_indexes():
+            print(index)
+    except Exception as err:
+        print(err)
+        logger.error(err)
+
+
+
 
 if __name__ == "__main__":
     
@@ -61,3 +78,5 @@ if __name__ == "__main__":
     create_collection()
     insert_multiple_doc()
     show_all()
+    single_field_index()
+    
