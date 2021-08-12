@@ -60,19 +60,43 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+
 def sum_func():
     """
         Description: 
             This function is used for finding sum of the prices
             for the customers.
     """
-    map = Code("function () {"
-    "    emit(this.cust_id, this.price);"
-    "}")
-    reduce = Code("function (key, values) {"
-    "return  Array.sum(values);"
-    "}")
+    
     try:
+        map = Code("function () {"
+            "    emit(this.cust_id, this.price);"
+            "}")
+        reduce = Code("function (key, values) {"
+                "return  Array.sum(values);"
+                "}")
+        result = db.orders.map_reduce(map, reduce, "myresults")
+        for doc in result.find():
+          print (doc)
+
+    except Exception as err:
+        logger.error(err)
+
+
+def average_func():
+    """
+        Description: 
+            This function is used for finding average of the price
+            for the customers
+    """
+    
+    try:
+        map = Code("function () {"
+                "    emit(this.cust_id, this.price);"
+                "}")
+        reduce = Code("function (key, values) {"
+                "return  Array.avg(values);"
+                "}")
         result = db.orders.map_reduce(map, reduce, "myresults")
         for doc in result.find():
           print (doc)
@@ -86,5 +110,7 @@ if __name__ == "__main__":
     insert_multiple_doc()
     show_all()
     sum_func()
-    print("Sum")
+    print("Sum\n")
+    average_func()
+    print("average\n")
   
