@@ -60,10 +60,31 @@ def show_all():
     except Exception as err:
         logger.error(err)
 
+def sum_func():
+    """
+        Description: 
+            This function is used for finding sum of the prices
+            for the customers.
+    """
+    map = Code("function () {"
+    "    emit(this.cust_id, this.price);"
+    "}")
+    reduce = Code("function (key, values) {"
+    "return  Array.sum(values);"
+    "}")
+    try:
+        result = db.orders.map_reduce(map, reduce, "myresults")
+        for doc in result.find():
+          print (doc)
+
+    except Exception as err:
+        logger.error(err)
 
 if __name__ == "__main__":
     
     create_collection()
     insert_multiple_doc()
     show_all()
+    sum_func()
+    print("Sum")
   
