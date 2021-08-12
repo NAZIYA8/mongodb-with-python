@@ -21,10 +21,28 @@ def create_collection():
         db.create_collection("student_scores")
     except Exception as err:
         logger.error(err)
-        
+
+def insert_multiple_doc():
+    """
+        Description: 
+            This function is used to insert multiple documents to 
+            the collection.
+    """
+    try:
+        db.student_scores.insert_many([
+            {'name':'Kinjal',"subject":'Maths','score':92},
+            {'name':'Dolly',"subject":'Physics','score':87},
+            {'name':'Samar',"subject":'Maths','score':99,'notes':'Excellent'},
+            {'name':'Komal',"subject":'English','score':78},
+            {'name':'Pranay',"subject":'History','score':65,'notes':'Adequate'}
+        ])
+        print("Inserted multiple documents\n")
+    except Exception as err:
+        logger.error(err)
+
 
 if __name__ == "__main__":
     
     
     create_collection()
-    
+    insert_multiple_doc()
