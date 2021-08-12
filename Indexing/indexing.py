@@ -85,6 +85,21 @@ def dropping_index():
         print(err)
         logger.error(err)
 
+def compound_indexing():
+    """
+        Description: 
+            This function is used to create a compound index.
+    """
+    print('Creating index....')
+    try:
+        db.student_scores.create_index([("name", pymongo.DESCENDING),
+                             ("subject", pymongo.ASCENDING)])
+        print("Compound Index created\n")
+        for index in db.student_scores.list_indexes():
+            print(index)
+    except Exception as err:
+        print(err)
+        logger.error(err)
 
 if __name__ == "__main__":
     
@@ -94,3 +109,4 @@ if __name__ == "__main__":
     show_all()
     single_field_index()
     dropping_index()
+    compound_indexing()
