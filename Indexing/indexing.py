@@ -70,6 +70,20 @@ def single_field_index():
         logger.error(err)
 
 
+def dropping_index():
+    """
+        Description: 
+            This function is used to drop index.
+    """
+    print('Dropping index....')
+    try:
+        db.student_scores.drop_index('name_1')
+        print("Index dropped\n")
+        for index in db.student_scores.list_indexes():
+            print(index)
+    except Exception as err:
+        print(err)
+        logger.error(err)
 
 
 if __name__ == "__main__":
@@ -79,4 +93,4 @@ if __name__ == "__main__":
     insert_multiple_doc()
     show_all()
     single_field_index()
-    
+    dropping_index()
