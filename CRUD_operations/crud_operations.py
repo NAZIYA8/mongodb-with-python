@@ -100,7 +100,7 @@ def show_one():
             This function is used to display the single document.
     """
     try:
-        print(db.students.find_one())
+        print(db.students.find_one({"FirstName":"Ashima"}))
         print("Showed one document\n")
     except Exception as err:
         logger.error(err)
