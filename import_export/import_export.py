@@ -36,3 +36,12 @@ result = db.emp_details.find()
 for data in result:
     logger.info(data)
 logger.info("Showed all documents\n")
+
+cursor = col.find()
+mongo_docs = list(cursor)
+
+logger.info("total docs:")
+logger.info(len(mongo_docs))
+
+
+
