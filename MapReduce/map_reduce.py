@@ -95,7 +95,7 @@ def average_func():
                 "    emit(this.cust_id, this.price);"
                 "}")
         reduce = Code("function (key, values) {"
-                "return  Array.avg(values);"
+                "return  avg(values);"
                 "}")
         result = db.orders.map_reduce(map, reduce, "myresults")
         for doc in result.find():
