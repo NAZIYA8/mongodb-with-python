@@ -31,3 +31,8 @@ db.emp_details.insert_many([
         {"EmployeeNo" : "6","FirstName" : "Gautham","LastName": "Deshpande","Age" : "30","Salary": "40000",'Gender':'Male'}
         ])
 logger.info("Inserted Multiple Documents\n")
+
+result = db.emp_details.find()
+for data in result:
+    logger.info(data)
+logger.info("Showed all documents\n")
