@@ -43,5 +43,25 @@ mongo_docs = list(cursor)
 logger.info("total docs:")
 logger.info(len(mongo_docs))
 
+docs = pandas.DataFrame(columns=[])
+for num, doc in enumerate(mongo_docs): 
+    doc_id = str(doc["_id"])
+    doc["_id"]=doc_id
+    series_obj = pandas.Series( doc, name=doc_id )
+    docs = docs.append( series_obj )
 
+# export MongoDB documents to a json file
+docs.to_json("object_rocket.json",orient='records')
 
+# export MongoDB documents to json
+json_export = docs.to_json(orient='records') 
+logger.info("\nJSON data:")
+logger.info(json_export)
+
+# export MongoDB documents to a CSV file
+docs.to_csv("object_rocket.csv", ",") # CSV delimited by commas
+
+# export MongoDB documents to CSV
+csv_export = docs.to_csv(sep=",") # CSV delimited by commas
+logger.info("\nCSV data:")
+logger.info(csv_export)
