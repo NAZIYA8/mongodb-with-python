@@ -8,9 +8,9 @@
 import pymongo
 from LoggerFormat import logger
 from pymongo import MongoClient , ASCENDING,DESCENDING
-client = MongoClient('localhost',27017)
-
-db = client.students
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_collection():
     try:
@@ -99,7 +99,10 @@ def compound_indexing():
         logger.error(err)
 
 if __name__ == "__main__":
-    
+    host = os.environ.get("HOST")
+    port = os.environ.get("PORT")
+    client = MongoClient(host,int(port))
+    db = client.students
     
     create_collection()
     insert_multiple_doc()
