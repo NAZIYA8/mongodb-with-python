@@ -8,17 +8,18 @@
 
 from LoggerFormat import logger
 from pymongo import MongoClient
-client = MongoClient('localhost',27017)
-from bson.code import Code
 
-db = client.test2
+from bson.code import Code
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_collection():
     try:
-        print("Creating collection orders")
+        logger.info("Creating collection orders")
         col = db.orders
         if col.drop():
-            print('Deleted existing collection')
+            logger.info('Deleted existing collection')
         db.create_collection("orders")
     except Exception as err:
         logger.error(err)
@@ -42,7 +43,7 @@ def insert_multiple_doc():
             { '_id': 9, 'cust_id': "Pranay",  'price': 55, 'items': [ { 'sku': "carrots", 'qty': 5, 'price': 1.0 }, { 'sku': "apples", 'qty': 10, 'price': 2.5 }, { 'sku': "oranges", 'qty': 10, 'price': 2.5 } ]},
             { '_id': 10, 'cust_id': "Pranay",  'price': 25, 'items': [ { 'sku': "oranges", 'qty': 10, 'price': 2.5 } ] }
                 ])
-        print("Inserted multiple documents\n")
+        logger.info("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -55,8 +56,8 @@ def show_all():
     try:
         result = db.orders.find()
         for data in result:
-            print(data)
-        print("Showed all documents\n")
+            logger.info(data)
+        logger.info("Showed all documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -77,7 +78,7 @@ def sum_func():
                 "}")
         result = db.orders.map_reduce(map, reduce, "myresults")
         for doc in result.find():
-          print (doc)
+          logger.info (doc)
 
     except Exception as err:
         logger.error(err)
@@ -99,18 +100,22 @@ def average_func():
                 "}")
         result = db.orders.map_reduce(map, reduce, "myresults")
         for doc in result.find():
-          print (doc)
+          logger.info (doc)
 
     except Exception as err:
         logger.error(err)
 
 if __name__ == "__main__":
-    
+    host = os.environ.get("HOST")
+    port = os.environ.get("PORT")
+    client = MongoClient(host,int(port))
+    db = client.test2
+
     create_collection()
     insert_multiple_doc()
     show_all()
     sum_func()
-    print("Sum\n")
+    logger.info("Sum\n")
     average_func()
-    print("average\n")
+    logger.info("average\n")
   
