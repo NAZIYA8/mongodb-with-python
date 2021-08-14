@@ -8,16 +8,17 @@
 
 from LoggerFormat import logger
 from pymongo import MongoClient
-client = MongoClient('localhost',27017)
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-db = client.test
 
 def create_collection():
     try:
-        print("Creating collection students.")
+        logger.info("Creating collection students.")
         col = db.students
         if col.drop():
-            print('Deleted existing collection')
+            logger.info('Deleted existing collection')
         db.create_collection("students")
     except Exception as err:
         logger.error(err)
@@ -35,7 +36,7 @@ def insert_one_doc():
             "LastName": "Shah",
             "Age" : "10"
         })
-        print("Inserted one document")
+        logger.info("Inserted one document")
     except Exception as err:
         logger.error(err)
 
@@ -90,7 +91,7 @@ def insert_multiple_doc():
             "Age" : "16"
         }
         ])
-        print("Inserted multiple documents\n")
+        logger.info("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -100,8 +101,8 @@ def show_one():
             This function is used to display the single document.
     """
     try:
-        print(db.students.find_one())
-        print("Showed one document\n")
+        logger.info(db.students.find_one({"FirstName":"Ashima"}))
+        logger.info("Showed one document\n")
     except Exception as err:
         logger.error(err)
 
@@ -114,8 +115,8 @@ def show_all():
     try:
         result = db.students.find()
         for data in result:
-            print(data)
-        print("Showed all documents\n")
+            logger.info(data)
+        logger.info("Showed all documents\n")
     except Exception as err:
         logger.error(err)
     
@@ -128,8 +129,8 @@ def update_one_doc():
     try:
         result = db.students.update_one(
             {"FirstName":"Amit"}, {"$set":{"LastName":"Shetty"}})
-        print(result)
-        print("Updated one document\n")
+        logger.info(result)
+        logger.info("Updated one document\n")
     except Exception as err:
         logger.error(err)
 
@@ -143,37 +144,22 @@ def update_multiple_doc():
         result = db.students.update_many(
             {"Age":"16"}, {"$set":{"LastName":"Aluwalia"}})
         for data in result:
-            print(data)
-        print("Updated multiple documents\n")
+            logger.info(data)
+        logger.info("Updated multiple documents\n")
     except Exception as err:
         logger.error(err)
 
-def remove_doc():
+def delete_doc():
     """
         Description: 
-            This function is used to remove document
+            This function is used to delete document
             in the collection.
     """
     try:
-        result = db.students.remove(
+        result = db.students.delete_one(
             {"LastName":"Shah"})
-        print(result)
-        print("Removed one document\n")
-    except Exception as err:
-        logger.error(err)
-
-def save_doc():
-    """ 
-        Description: 
-            This function is used to update the data if already existing
-            and it inserts if its not existing
-            in the collection.
-    """
-    try:
-        result = db.students.save(
-            {'StudentNo': '1', 'FirstName': 'Kinjal', 'LastName': 'Shah', 'Age': '10'})
-        print(result)
-        print("saved one document\n")
+        logger.info(result)
+        logger.info("Removed one document\n")
     except Exception as err:
         logger.error(err)
 
@@ -185,8 +171,8 @@ def AND_operation():
     try:
         result = db.students.find({"FirstName":"Virat"},{"Age":"16"})
         for data in result:
-            print(data)
-        print("Successfully performed AND operation\n")
+            logger.info(data)
+        logger.info("Successfully performed AND operation\n")
     except Exception as err:
         logger.error(err)
 
@@ -202,8 +188,8 @@ def OR_operation():
             }
             )
         for data in result:
-            print(data)
-        print("Successfully performed OR operation\n")
+            logger.info(data)
+        logger.info("Successfully performed OR operation\n")
     except Exception as err:
         logger.error(err)
 
@@ -219,8 +205,8 @@ def AND_OR_operation():
             }
             )
         for data in result:
-            print(data)
-        print("Successfully performed combination of AND and OR operation\n")
+            logger.info(data)
+        logger.info("Successfully performed combination of AND and OR operation\n")
     except Exception as err:
         logger.error(err)
 
@@ -232,28 +218,28 @@ def comparison_operators():
     try:
         result = db.students.find({"Age":{"$gt":"15"}})
         for data in result:
-            print(data)
-        print("Displayed Age greater than 15\n")
+            logger.info(data)
+        logger.info("Displayed Age greater than 15\n")
 
         result = db.students.find({"Age":{"$lt":"15"}})
         for data in result:
-            print(data)
-        print("Displayed Age less than 15\n")
+            logger.info(data)
+        logger.info("Displayed Age less than 15\n")
 
         result = db.students.find({"Age":{"$gte":"16"}})
         for data in result:
-            print(data)
-        print("Displayed Age greater than equal to 16\n")
+            logger.info(data)
+        logger.info("Displayed Age greater than equal to 16\n")
 
         result = db.students.find({"Age":{"$lte":"12"}})
         for data in result:
-            print(data)
-        print("Displayed Age less than equal to 12\n")
+            logger.info(data)
+        logger.info("Displayed Age less than equal to 12\n")
 
         result = db.students.find({"Age":{"$ne":"16"}})
         for data in result:
-            print(data)
-        print("Displayed Age not equal to 16\n")
+            logger.info(data)
+        logger.info("Displayed Age not equal to 16\n")
 
 
     except Exception as err:
@@ -261,6 +247,12 @@ def comparison_operators():
 
 
 if __name__ == "__main__":
+
+
+    host = os.environ.get("HOST")
+    port = os.environ.get("PORT")
+    client = MongoClient(host,int(port))
+    db = client.test
     create_collection()
     insert_one_doc()
     insert_multiple_doc()
@@ -270,9 +262,7 @@ if __name__ == "__main__":
     show_all()
     update_multiple_doc()
     show_all()
-    remove_doc()
-    show_all()
-    save_doc()
+    delete_doc()
     show_all()
     AND_operation()
     OR_operation()
