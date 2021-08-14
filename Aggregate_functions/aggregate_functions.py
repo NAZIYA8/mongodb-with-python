@@ -8,20 +8,16 @@
 
 from LoggerFormat import logger
 from pymongo import MongoClient
-
-from LoggerFormat import logger
-from pymongo import MongoClient
-client = MongoClient('localhost',27017)
-
-db = client.school
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_collection():
     try:
-        print("Creating collection student.")
+        logger.info("Creating collection student.")
         col = db.student
         if col.drop():
-            print('Deleted existing collection')
+            logger.info('Deleted existing collection')
         db.create_collection("student")
     except Exception as err:
         logger.error(err)
@@ -41,7 +37,7 @@ def insert_multiple_doc():
             {'user':'Dolly',"subject":'DataScience','score':60},
             {'user':'Kinjal',"subject":'DataScience','score':95}
         ])
-        print("Inserted multiple documents\n")
+        logger.info("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -54,8 +50,8 @@ def show_all():
     try:
         result = db.student.find()
         for data in result:
-            print(data)
-        print("Showed all documents\n")
+            logger.info(data)
+        logger.info("Showed all documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -67,8 +63,8 @@ def count_func():
     try:
         result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Total_subject': {'$sum':1}}}])
         for i in result:
-            print(i)
-        print("\n")
+            logger.info(i)
+        logger.info("count\n")
     except Exception as err:
         logger.error(err)
 
@@ -80,8 +76,8 @@ def sum_func():
     try:
         result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Total_score': {'$sum':'$score'}}}])
         for i in result:
-            print(i)
-        print("\n")
+            logger.info(i)
+        logger.info("\n")
     except Exception as err:
         logger.error(err)
 
@@ -93,8 +89,8 @@ def min_func():
     try:
         result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Minimum_score': {'$min':'$score'}}}])
         for i in result:
-            print(i)
-        print("\n")
+            logger.info(i)
+        logger.info("minimum\n")
     except Exception as err:
         logger.error(err)
 
@@ -106,8 +102,8 @@ def max_func():
     try:
         result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Maximum_score': {'$max':'$score'}}}])
         for i in result:
-            print(i)
-        print("\n")
+            logger.info(i)
+        logger.info("maximum\n")
     except Exception as err:
         logger.error(err)
 
@@ -119,13 +115,17 @@ def avg_func():
     try:
         result = db.student.aggregate([{ '$group' : { "_id" :'$user', 'Average_score': {'$avg':'$score'}}}])
         for i in result:
-            print(i)
-        print("\n")
+            logger.info(i)
+        logger.info("average\n")
     except Exception as err:
         logger.error(err)
 
 if __name__ == "__main__":
     
+    host = os.environ.get("HOST")
+    port = os.environ.get("PORT")
+    client = MongoClient(host,int(port))
+    db = client.school
     create_collection()
     insert_multiple_doc()
     show_all()
