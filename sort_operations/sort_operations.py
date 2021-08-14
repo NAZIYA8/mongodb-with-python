@@ -8,20 +8,16 @@
 
 from LoggerFormat import logger
 from pymongo import MongoClient
-
-from LoggerFormat import logger
-from pymongo import MongoClient
-client = MongoClient('localhost',27017)
-
-db = client.employee
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_collection():
     try:
-        print("Creating collection employee_details.")
+        logger.info("Creating collection employee_details.")
         col = db.employee_details
         if col.drop():
-            print('Deleted existing collection')
+            logger.info('Deleted existing collection')
         db.create_collection("employee_details")
     except Exception as err:
         logger.error(err)
@@ -77,7 +73,7 @@ def insert_multiple_doc():
             "Salary": "40000"
         }
         ])
-        print("Inserted multiple documents\n")
+        logger.info("Inserted multiple documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -91,8 +87,8 @@ def show_all():
     try:
         result = db.employee_details.find()
         for data in result:
-            print(data)
-        print("Showed all documents\n")
+            logger.info(data)
+        logger.info("Showed all documents\n")
     except Exception as err:
         logger.error(err)
 
@@ -105,8 +101,8 @@ def sort_in_asc():
     try:
         result = db.employee_details.find({}, {"Age":1, '_id':0}).sort("Age",1)
         for data in result:
-            print(data)
-        print("Successfully Sorted in ascending order\n")
+            logger.info(data)
+        logger.info("Successfully Sorted in ascending order\n")
     except Exception as err:
         logger.error(err)
 
@@ -119,8 +115,8 @@ def sort_in_desc():
     try:
         result = db.employee_details.find({}, {"FirstName":1, '_id':0}).sort("FirstName",-1)
         for data in result:
-            print(data)
-        print("Successfully Sorted in descending order\n")
+            logger.info(data)
+        logger.info("Successfully Sorted in descending order\n")
     except Exception as err:
         logger.error(err)
 
@@ -133,8 +129,8 @@ def limit_func():
     try:
         result = db.employee_details.find({}, {"FirstName":1,'_id':0}).limit(2)
         for data in result:
-            print(data)
-        print("Used limit function\n")
+            logger.info(data)
+        logger.info("Used limit function\n")
     except Exception as err:
         logger.error(err)
 
@@ -147,14 +143,17 @@ def skip_func():
     try:
         result = db.employee_details.find({}, {"FirstName":1,'_id':0}).skip(2)
         for data in result:
-            print(data)
-        print("Used skip function\n")
+            logger.info(data)
+        logger.info("Used skip function\n")
     except Exception as err:
         logger.error(err)
 
 
 if __name__ == "__main__":
-    
+    host = os.environ.get("HOST")
+    port = os.environ.get("PORT")
+    client = MongoClient(host,int(port))
+    db = client.employee
     create_collection()
     insert_multiple_doc()
     show_all()
