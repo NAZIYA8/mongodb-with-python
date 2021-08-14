@@ -12,6 +12,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+
 def create_collection():
     try:
         logger.info("Creating collection student.")
