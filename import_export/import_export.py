@@ -12,8 +12,13 @@ from pymongo import MongoClient
 import pandas
 import time
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-client = MongoClient('localhost',27017)
+host = os.environ.get("HOST")
+port = os.environ.get("PORT")
+client = MongoClient(host,int(port))
 db = client.test3
 
 try:
